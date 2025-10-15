@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sliding Message</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial', sans-serif;
+            position: relative;
+        }
+
+        body::before {
+            content: '💙';
+            position: absolute;
+            font-size: 80px;
+            top: 10%;
+            left: 20%;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.3;
+        }
+
+        body::after {
+            content: '🌸';
+            position: absolute;
+            font-size: 60px;
+            bottom: 15%;
+            right: 25%;
+            animation: float 5s ease-in-out infinite reverse;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+
+        .container {
+            width: 100%;
+            height: 150px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .sliding-text {
+            position: absolute;
+            white-space: nowrap;
+            font-size: 72px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 
+                0 0 20px rgba(255, 255, 255, 0.5),
+                0 0 40px rgba(255, 105, 180, 0.4),
+                3px 3px 10px rgba(0, 0, 0, 0.3);
+            animation: slide 15s linear infinite;
+            letter-spacing: 3px;
+        }
+
+        @keyframes slide {
+            from {
+                left: 100%;
+            }
+            to {
+                left: -100%;
+            }
+        }
+
+        .hearts {
+            position: absolute;
+            font-size: 40px;
+            animation: hearts-fall linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes hearts-fall {
+            0% {
+                top: -10%;
+                opacity: 0.8;
+                transform: rotate(0deg);
+            }
+            100% {
+                top: 110%;
+                opacity: 0;
+                transform: rotate(360deg);
+            }
+        }
+
+        .heart-1 { left: 10%; animation-duration: 8s; animation-delay: 0s; }
+        .heart-2 { left: 30%; animation-duration: 10s; animation-delay: 2s; }
+        .heart-3 { left: 50%; animation-duration: 9s; animation-delay: 4s; }
+        .heart-4 { left: 70%; animation-duration: 11s; animation-delay: 1s; }
+        .heart-5 { left: 90%; animation-duration: 7s; animation-delay: 3s; }
+    </style>
+</head>
+<body>
+    <div class="hearts heart-1">💖</div>
+    <div class="hearts heart-2">🌺</div>
+    <div class="hearts heart-3">💕</div>
+    <div class="hearts heart-4">🌹</div>
+    <div class="hearts heart-5">💝</div>
+
+    <div class="container">
+        <div class="sliding-text">
+            💙 Hi Anna, help me find a girl with blue eyes 💙 ✨ 🌸
+        </div>
+    </div>
+
+    <script>
+        // Add sparkle effect on mouse move
+        document.addEventListener('mousemove', (e) => {
+            const sparkle = document.createElement('div');
+            sparkle.innerHTML = '✨';
+            sparkle.style.position = 'absolute';
+            sparkle.style.left = e.clientX + 'px';
+            sparkle.style.top = e.clientY + 'px';
+            sparkle.style.fontSize = '20px';
+            sparkle.style.pointerEvents = 'none';
+            sparkle.style.animation = 'sparkle 1s ease-out forwards';
+            document.body.appendChild(sparkle);
+
+            setTimeout(() => sparkle.remove(), 1000);
+        });
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkle {
+                0% { opacity: 1; transform: scale(0) rotate(0deg); }
+                50% { opacity: 0.8; transform: scale(1.5) rotate(180deg); }
+                100% { opacity: 0; transform: scale(0) rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
